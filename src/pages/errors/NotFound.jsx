@@ -1,4 +1,4 @@
-import { Button, Container, createStyles, Image, SimpleGrid, Text, Title } from "@mantine/core";
+import { Button, Container, createStyles, Group, Text, Title } from "@mantine/core";
 import { Link } from "react-router-dom";
 
 const useStyles = createStyles((theme) => ({
@@ -7,33 +7,35 @@ const useStyles = createStyles((theme) => ({
     paddingBottom: 80,
   },
 
-  title: {
+  label: {
+    textAlign: "center",
     fontWeight: 900,
-    fontSize: 34,
-    marginBottom: theme.spacing.md,
+    fontSize: 220,
+    lineHeight: 1,
+    marginBottom: theme.spacing.xl * 1.5,
+    color: theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[2],
+
+    [theme.fn.smallerThan("sm")]: {
+      fontSize: 120,
+    },
+  },
+
+  title: {
     fontFamily: `Greycliff CF, ${theme.fontFamily}`,
+    textAlign: "center",
+    fontWeight: 900,
+    fontSize: 38,
 
     [theme.fn.smallerThan("sm")]: {
       fontSize: 32,
     },
   },
 
-  control: {
-    [theme.fn.smallerThan("sm")]: {
-      width: "100%",
-    },
-  },
-
-  mobileImage: {
-    [theme.fn.largerThan("sm")]: {
-      display: "none",
-    },
-  },
-
-  desktopImage: {
-    [theme.fn.smallerThan("sm")]: {
-      display: "none",
-    },
+  description: {
+    maxWidth: 500,
+    margin: "auto",
+    marginTop: theme.spacing.xl,
+    marginBottom: theme.spacing.xl * 1.5,
   },
 }));
 
@@ -42,20 +44,17 @@ export default function NotFound() {
 
   return (
     <Container className={classes.root}>
-      <SimpleGrid spacing={80} cols={2} breakpoints={[{ maxWidth: "sm", cols: 1, spacing: 40 }]}>
-        <Image src="https://ui.mantine.dev/_next/static/media/image.11cd6c19.svg" className={classes.mobileImage} />
-        <div>
-          <Title className={classes.title}>Something is not right...</Title>
-          <Text color="dimmed" size="lg">
-            Page you are trying to open does not exist. You may have mistyped the address, or the page has been moved to
-            another URL. If you think this is an error contact support.
-          </Text>
-          <Button component={Link} to="/" variant="outline" size="md" mt="xl" className={classes.control}>
-            Get back to home page
-          </Button>
-        </div>
-        <Image src="https://ui.mantine.dev/_next/static/media/image.11cd6c19.svg" className={classes.desktopImage} />
-      </SimpleGrid>
+      <div className={classes.label}>404</div>
+      <Title className={classes.title}>You have found a secret place.</Title>
+      <Text color="dimmed" size="lg" align="center" className={classes.description}>
+        Unfortunately, this is only a 404 page. You may have mistyped the address, or the page has been moved to another
+        URL.
+      </Text>
+      <Group position="center">
+        <Button component={Link} to="/" variant="subtle" size="md">
+          Take me back to home page
+        </Button>
+      </Group>
     </Container>
   );
 }
