@@ -70,11 +70,11 @@ export default function Banner() {
           </Text>
         </Container>
 
-        <div className="gap-3 flex sm:justify-center  px-5 xs:flex-row flex-col">
+        <div className="flex sm:justify-center  px-5 xs:flex-row flex-col">
           <Button component={Link} to="/services" className={classes.control} variant="white" size="lg">
             Services
           </Button>
-          <Button className={cx(classes.control, classes.secondaryControl)} size="lg">
+          <Button component={Link} to="/blog" className={cx(classes.control, classes.secondaryControl)} size="lg">
             Blog
           </Button>
         </div>

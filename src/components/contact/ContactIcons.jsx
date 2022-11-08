@@ -54,7 +54,7 @@ function ContactIcon({ icon: Icon, title, description, variant = "gradient", cla
 }
 
 const MOCKDATA = [
-  { title: "Email", description: "hello@devstate.dev", icon: IconAt },
+  { title: "Email", description: "pro@dentist.com", icon: IconAt },
   { title: "Phone", description: "+49 (800) 335 35 35", icon: IconPhone },
   { title: "Address", description: "844 Morris Park avenue", icon: IconMapPin },
   { title: "Working hours", description: "8 a.m. – 11 p.m.", icon: IconSun },

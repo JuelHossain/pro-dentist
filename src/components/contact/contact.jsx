@@ -11,11 +11,12 @@ const useStyles = createStyles((theme) => {
       display: "flex",
       backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[8] : theme.white,
       borderRadius: theme.radius.lg,
-      padding: 4,
+      padding: 10,
       border: `1px solid ${theme.colorScheme === "dark" ? theme.colors.dark[8] : theme.colors.gray[2]}`,
 
       [BREAKPOINT]: {
         flexDirection: "column",
+        padding: 4,
       },
     },
 
