@@ -5,7 +5,10 @@ export const modalContext = createContext();
 export function ModalProvider({ children }) {
   const termsModal = useDisclosure();
   const privacyModal = useDisclosure();
-  const context = useMemo(() => ({ termsModal, privacyModal }), [termsModal, privacyModal]);
+  const authModal = useDisclosure();
+
+  const context = useMemo(() => ({ termsModal, privacyModal, authModal }), [termsModal, privacyModal, authModal]);
+
   return <modalContext.Provider value={context}>{children}</modalContext.Provider>;
 }
 export const useModalContext = () => useContext(modalContext);

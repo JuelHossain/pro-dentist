@@ -9,9 +9,9 @@ export default function useAuthHandler({ form, type, setError }) {
   const [signInWithEmailAndPassword, signedInUser, singingIn, singingInError] = useSignInWithEmailAndPassword(auth);
   const [createUser, createdUser, creating, creatingError] = useCreateUser();
   const [updateProfile, updating, updateError] = useUpdateProfile(auth);
-  const { upload, uploading } = usePhotoURL();
+  const { upload, uploading, uploadError } = usePhotoURL();
 
-  const authError = singingInError || creatingError || updateError;
+  const authError = singingInError || creatingError || updateError || uploadError;
   const user = signedInUser || createdUser;
   const loading = singingIn || creating || updating || uploading;
 

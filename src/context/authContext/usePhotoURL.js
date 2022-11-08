@@ -7,8 +7,6 @@ export default function usePhotoURL() {
   const [uploadFile, uploading, snapshot, uploadError] = useUploadFile();
   const [downloading, setLoading] = useState(false);
   const loading = uploading || downloading;
-
-
   const upload = async (file, user) => {
     setLoading(true);
     const { name, type } = file ?? {};
