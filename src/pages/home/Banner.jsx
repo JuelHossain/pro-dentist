@@ -1,87 +1,84 @@
-import { Button, createStyles, Group, List, Text, ThemeIcon, Title } from "@mantine/core";
-import { IconCheck } from "@tabler/icons";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { Button, Container, createStyles, Overlay, Stack, Text, Title } from "@mantine/core";
 import { Link } from "react-router-dom";
-import auth from "../../firebase";
 
 const useStyles = createStyles((theme) => ({
-  title: {
-    color: theme.colorScheme === "dark" ? theme.white : theme.black,
-    fontFamily: `Greycliff CF, ${theme.fontFamily}`,
-    fontSize: 44,
-    lineHeight: 1.2,
-    fontWeight: 900,
+  wrapper: {
+    position: "relative",
+    paddingTop: 220,
+    paddingBottom: 130,
+    minHeight: "75vh",
+    backgroundImage:
+      "url(https://www.mouthhealthy.org/-/media/project/ada-organization/ada/mouthhealthy/images/femaledentist_1110x700.jpg?rev=fec27156dea6444c94b0295f5f057850&w=1306&hash=3A2C948C46A041C02D4D85275B67CAA5)",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
 
-    [theme.fn.smallerThan("xs")]: {
-      fontSize: 28,
-    },
-  },
-
-  control: {
-    [theme.fn.smallerThan("xs")]: {
-      flex: 1,
+    "@media (max-width: 575px)": {
+      paddingTop: 80,
+      paddingBottom: 50,
+      backgroundPosition: "right",
+      backgroundPositionX: 500,
     },
   },
 
   highlight: {
-    position: "relative",
-    backgroundColor: theme.fn.variant({ variant: "light", color: theme.primaryColor }).background,
-    borderRadius: theme.radius.sm,
-    padding: "4px 12px",
+    color: theme.colors[theme.primaryColor][4],
+  },
+
+  control: {
+    height: 42,
+    fontSize: theme.fontSizes.md,
+
+    "&:not(:first-of-type)": {
+      marginLeft: theme.spacing.md,
+    },
+
+    "@media (max-width: 600px)": {
+      "&:not(:first-of-type)": {
+        marginTop: theme.spacing.md,
+        marginLeft: 0,
+      },
+    },
+  },
+
+  secondaryControl: {
+    color: theme.white,
+    backgroundColor: "rgba(255, 255, 255, .4)",
+
+    "&:hover": {
+      backgroundColor: "rgba(255, 255, 255, .45) !important",
+    },
   },
 }));
 
 export default function Banner() {
-  const { classes } = useStyles();
-  const [user] = useAuthState(auth);
+  const { classes, cx } = useStyles();
+
   return (
-    <div className="flex justify-between gap-10 mt-10 md:mt-20 lg:mt-32 ">
-      <div className="flex-1 pl-5 sm:pl-10 md:pl-20 lg:pl-28 ">
-        <Title className={classes.title}>
-          A <span className={classes.highlight}>Development</span> Journey <br /> You will never forget
+    <div className={classes.wrapper}>
+      <Overlay color="#000" opacity={0.65} zIndex={1} />
+
+      <Stack className="z-10 relative">
+        <Title className="sm:text-center sm:text-6xl text-4xl font-black px-5 text-center xs:text-left">
+          <Text component="span" inherit className={classes.highlight}>
+            Dr. Tanzinia Sara
+          </Text>
         </Title>
-        <Text color="dimmed" mt="md">
-          We will make you fill that programming was never that easy, we will make you a complete web developer in less
-          than a month. hey maybe you are thinking that's not possible but it is
-        </Text>
 
-        <List
-          mt={30}
-          spacing="sm"
-          size="sm"
-          icon={
-            <ThemeIcon size={20} radius="xl">
-              <IconCheck size={12} stroke={1.5} />
-            </ThemeIcon>
-          }
-        >
-          <List.Item>
-            <b>Flexible Timing</b> – watch videos whenever you have time.
-          </List.Item>
-          <List.Item>
-            <b>World class Teachers</b> – the instructors of courses are world class teachers
-          </List.Item>
-          <List.Item>
-            <b>No annoying lectures</b> – We cut the annoying explanations and focused on the main thing instead.
-          </List.Item>
-        </List>
+        <Container size={640}>
+          <Text size="lg" className="sm:text-xl text-neu-1 sm:text-center px-2 text-center xs:text-left">
+            I am The dentist you will be visiting. please checkout our services before coming and book an appointment
+          </Text>
+        </Container>
 
-        <Group mt={30}>
-          <Button component={Link} to={user ? "/courses" : "/login"} radius="xl" size="md" className={classes.control}>
-            Get started
+        <div className="gap-3 flex sm:justify-center  px-5 xs:flex-row flex-col">
+          <Button component={Link} to="/services" className={classes.control} variant="white" size="lg">
+            Services
           </Button>
-          <Button component={Link} to="/courses" variant="default" radius="xl" size="md" className={classes.control}>
-            See Courses
+          <Button className={cx(classes.control, classes.secondaryControl)} size="lg">
+            Blog
           </Button>
-        </Group>
-      </div>
-      <div className="flex-1 hidden md:flex pb-20 max-h-[50vh]">
-        <img
-          alt="banner"
-          src="https://ui.mantine.dev/_next/static/media/image.9a65bd94.svg"
-          className="h-full w-full object-contain"
-        />
-      </div>
+        </div>
+      </Stack>
     </div>
   );
 }

@@ -6,6 +6,9 @@ const tailColors = getTailColors(colors);
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   darkMode: "class",
+  corePlugins: {
+    preflight: false,
+  },
   theme: {
     screens: {
       xxs: "400px",
