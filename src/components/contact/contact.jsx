@@ -1,5 +1,6 @@
 import { Button, createStyles, Group, Paper, SimpleGrid, Text, Textarea, TextInput } from "@mantine/core";
-import bg from "./bg.svg";
+import { showNotification } from "@mantine/notifications";
+
 import { ContactIconsList } from "./ContactIcons";
 
 const useStyles = createStyles((theme) => {
@@ -60,7 +61,7 @@ const useStyles = createStyles((theme) => {
       boxSizing: "border-box",
       position: "relative",
       borderRadius: theme.radius.lg - 2,
-      backgroundColor:theme.colors.main[6],
+      backgroundColor: theme.colors.main[6],
       border: "1px solid transparent",
       padding: theme.spacing.xl,
       flex: "0 0 280px",
@@ -102,20 +103,33 @@ export default function Contact() {
           <ContactIconsList variant="white" />
         </div>
 
-        <form className={classes.form} onSubmit={(event) => event.preventDefault()}>
+        <form
+          className={classes.form}
+          onSubmit={(e) => {
+            e.preventDefault();
+            showNotification({ title: "Message Sent", message: "We will contact you as soon as possible" });
+            e.target.reset();
+          }}
+        >
           <Text size="lg" weight={700} className={classes.title}>
             Get in touch
           </Text>
 
           <div className={classes.fields}>
             <SimpleGrid cols={2} breakpoints={[{ maxWidth: "sm", cols: 1 }]}>
-              <TextInput label="Your name" placeholder="Your name" />
-              <TextInput label="Your email" placeholder="hello@mantine.dev" required />
+              <TextInput required label="Your name" placeholder="Your name" />
+              <TextInput label="Your email" placeholder="your@email.com" required type="email" />
             </SimpleGrid>
 
             <TextInput mt="md" label="Subject" placeholder="Subject" required />
 
-            <Textarea mt="md" label="Your message" placeholder="Please include all relevant information" minRows={3} />
+            <Textarea
+              required
+              mt="md"
+              label="Your message"
+              placeholder="Please include all relevant information"
+              minRows={3}
+            />
 
             <Group position="right" mt="md">
               <Button type="submit" className={classes.control}>
