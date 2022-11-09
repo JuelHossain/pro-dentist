@@ -25,7 +25,14 @@ export default function ServiceCard({ service }) {
   const { classes, theme, cx } = useStyles();
 
   return (
-    <Card shadow="md" radius="md" className={cx(classes.card, "relative")} p="xl" component={Link} to={_id}>
+    <Card
+      shadow="md"
+      radius="md"
+      className={cx(classes.card, "relative")}
+      p="xl"
+      component={Link}
+      to={`/services/${_id}`}
+    >
       <Button variant="light" className="absolute top-5 right-5" compact rightIcon={<IconArrowUpRight />}>
         Details
       </Button>
