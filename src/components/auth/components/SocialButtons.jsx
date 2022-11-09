@@ -2,7 +2,6 @@ import { Button, Group } from "@mantine/core";
 import { IconBrandGithub } from "@tabler/icons";
 import { useEffect } from "react";
 import { useSignInWithGithub, useSignInWithGoogle } from "react-firebase-hooks/auth";
-import { useLocation, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../../context/authContext/authContext";
 import auth from "../../../firebase";
 import useToken from "../../../hooks/auth/useToken";
@@ -38,10 +37,6 @@ export function SocialButtons() {
   const user = googleUser || githubUser;
   const error = googleError || githubError;
 
-  const navigate = useNavigate();
-  const { state } = useLocation();
-  const from = state?.from || "/";
-
   const { mutate: generateToken } = useToken();
 
   useEffect(() => {
@@ -49,10 +44,9 @@ export function SocialButtons() {
       setError(error.message);
     }
     if (user) {
-      navigate(from);
       generateToken(user);
     }
-  }, [user, error, setError, navigate, from, generateToken]);
+  }, [user, error, setError, generateToken]);
 
   return (
     <Group mb="md" mt="md">

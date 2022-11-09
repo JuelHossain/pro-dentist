@@ -3,7 +3,7 @@ import axios from "axios";
 
 export default function useGetService(id) {
   const getService = async () => {
-    const { data } = await axios(` /services/${id}`);
+    const { data } = await axios(`/services/${id}`);
     return data;
   };
 
@@ -12,5 +12,5 @@ export default function useGetService(id) {
     queryFn: getService,
     enabled: !!id,
   });
-  return { data };
+  return data;
 }

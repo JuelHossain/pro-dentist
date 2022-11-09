@@ -18,7 +18,7 @@ export default function ServiceForm({ form }) {
   const shortProps = { label: "Short Description", placeholder: "maximum 100 character", ...getInputProps("short") };
 
   return (
-    <form onSubmit={(e) => submitHandler(e)}>
+    <form onSubmit={submitHandler}>
       <Stack>
         <TextInput {...nameProps} />
         <TextInput {...shortProps} />

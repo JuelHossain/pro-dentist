@@ -1,5 +1,6 @@
-import { Card, createStyles, Text } from "@mantine/core";
-import { IconDentalBroken } from "@tabler/icons";
+import { Button, Card, createStyles, Text } from "@mantine/core";
+import { IconArrowUpRight, IconDentalBroken } from "@tabler/icons";
+import { Link } from "react-router-dom";
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -20,14 +21,17 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export default function ServiceCard({ service }) {
-  const { name, short } = service;
-  const { classes, theme } = useStyles();
+  const { name, short, _id } = service;
+  const { classes, theme, cx } = useStyles();
 
   return (
-    <Card shadow="md" radius="md" className={classes.card} p="xl">
+    <Card shadow="md" radius="md" className={cx(classes.card, "relative")} p="xl" component={Link} to={_id}>
+      <Button variant="light" className="absolute top-5 right-5" compact rightIcon={<IconArrowUpRight />}>
+        Details
+      </Button>
       <IconDentalBroken size={50} stroke={2} color={theme.fn.primaryColor()} />
 
-      <Text size="lg" weight={500} className={classes.cardTitle} mt="md">
+      <Text size="lg" weight={500} className={cx(classes.cardTitle, "uppercase")} mt="md">
         {name}
       </Text>
       <Text size="sm" color="dimmed" mt="sm">

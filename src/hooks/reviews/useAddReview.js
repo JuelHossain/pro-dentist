@@ -9,16 +9,16 @@ export const addReview = async (newReview) => {
 export default function useAddReview() {
   const queryClient = useQueryClient();
 
-  // updating review optimistically
-  const optimisticUpdate = async (newReview) => {
-    await queryClient.cancelQueries({ queryKey: ["get-reviews"] });
+//   // updating review optimistically
+//   const optimisticUpdate = async (newReview) => {
+//     await queryClient.cancelQueries({ queryKey: ["get-reviews"] });
 
-    const prevReviews = queryClient.getQueryData(["get-reviews"]);
+//     const prevReviews = queryClient.getQueryData(["get-reviews"]);
 
-    queryClient.setQueryData(["get-reviews"], (old) => [newReview, ...old]);
+//     queryClient.setQueryData(["get-reviews"], (old) => [newReview, ...old]);
 
-    return { prevReviews };
-  };
+//     return { prevReviews };
+//   };
 
   // undoing changes after and error
   const undoChanges = (err, newReview, context) => {
@@ -32,7 +32,7 @@ export default function useAddReview() {
 
   const mutation = useMutation({
     mutationFn: addReview,
-    onMutate: optimisticUpdate,
+    // onMutate: optimisticUpdate,
     onError: undoChanges,
     onSettled: refetch,
   });

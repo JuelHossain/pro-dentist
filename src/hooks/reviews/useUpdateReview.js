@@ -2,8 +2,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
-export const updateReview = async (updatedReview) => {
-  const { data: response } = await axios.patch(`/reviews/${updatedReview._id}`, updatedReview);
+export const updateReview = async ({ patch, id }) => {
+  const { data: response } = await axios.patch(`/reviews/${id}`, patch);
   return response;
 };
 
@@ -12,28 +12,29 @@ export default function useUpdateReview() {
 
   // optimistic update on query start
 
-  const optimisticUpdate = async (updatedReview) => {
-    const queryKey = ["get-review", updatedReview._id];
-
+  const optimisticUpdate = async ({ patch, id }) => {
+    const queryKey = ["get-review", id];
     await queryClient.cancelQueries({ queryKey });
 
     const prevReview = queryClient.getQueryData(queryKey);
 
-    queryClient.setQueryData(queryKey, { ...updatedReview, prevReview });
+    queryClient.setQueryData(queryKey, { ...patch, prevReview });
 
-    return { prevReview, updatedReview };
+    return { prevReview };
   };
 
   // undo changes on error
-  const undoChanges = (err, un, { prevReview, updatedReview }) => {
-    const queryKey = ["get-review", updatedReview._id];
+  const undoChanges = (err, { id }, { prevReview }) => {
+    const queryKey = ["get-review", id];
     queryClient.setQueryData(queryKey, prevReview);
   };
 
   // refetch on query end
-  const refetch = (updatedReview) => {
-    const queryKey = ["get-review", updatedReview._id];
+  const refetch = ({ id }) => {
+    const queryKey = ["get-review", id];
     queryClient.invalidateQueries({ queryKey });
+    const queryKey2 = ["get-reviews"];
+    queryClient.invalidateQueries({ queryKey: queryKey2 });
   };
 
   const mutation = useMutation({
