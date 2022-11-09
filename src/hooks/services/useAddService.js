@@ -9,16 +9,16 @@ export const addService = async (newService) => {
 export default function useAddService() {
   const queryClient = useQueryClient();
 
-  // // updating service optimistically
-  // const optimisticUpdate = async (newService) => {
-  //   await queryClient.cancelQueries({ queryKey: ["get-services"] });
+  // updating service optimistically
+  const optimisticUpdate = async (newService) => {
+    await queryClient.cancelQueries({ queryKey: ["get-services"] });
 
-  //   const previousServices = queryClient.getQueryData(["get-services"]);
+    const previousServices = queryClient.getQueryData(["get-services"]);
 
-  //   queryClient.setQueryData(["get-services"], (old) => [newService, ...old]);
+    queryClient.setQueryData(["get-services"], (old) => [newService, ...old]);
 
-  //   return { previousServices };
-  // };
+    return { previousServices };
+  };
 
   // undoing changes after and error
   const undoChanges = (err, newService, context) => {
@@ -32,7 +32,7 @@ export default function useAddService() {
 
   const mutation = useMutation({
     mutationFn: addService,
-    // onMutate: optimisticUpdate,
+    onMutate: optimisticUpdate,
     onError: undoChanges,
     onSettled: refetch,
   });

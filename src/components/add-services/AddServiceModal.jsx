@@ -15,6 +15,7 @@ export default function AddServiceModal() {
       size={500}
       opened={opened}
       onClose={close}
+      closeOnClickOutside={false}
     >
       <ServiceForm form={form} />
     </Modal>

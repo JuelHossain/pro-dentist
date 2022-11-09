@@ -15,11 +15,13 @@ export default function ServiceForm({ form }) {
   };
 
   const nameProps = { label: "Service name", placeholder: "Service Name", ...getInputProps("name") };
+  const shortProps = { label: "Short Description", placeholder: "maximum 100 character", ...getInputProps("short") };
 
   return (
     <form onSubmit={(e) => submitHandler(e)}>
       <Stack>
         <TextInput {...nameProps} />
+        <TextInput {...shortProps} />
 
         <div>
           <Text className="font-semibold text-sm">Description</Text>
@@ -28,7 +30,6 @@ export default function ServiceForm({ form }) {
             {errors?.description}
           </Text>
         </div>
-
         <Group position="right">
           <Button loading={loading} type="submit">
             Send message
