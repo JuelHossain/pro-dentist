@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 export default function Logo({ m }) {
   return (
     <Group
+      noWrap
       component={Link}
       spacing={m && 3}
       to="/"

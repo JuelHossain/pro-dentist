@@ -9,7 +9,7 @@ export default function useGetServices(page, size) {
     return data;
   };
   const data = useQuery({
-    queryKey: ["get-services"],
+    queryKey: ["get-services", page, size],
     queryFn: getServices,
   });
   return data;
