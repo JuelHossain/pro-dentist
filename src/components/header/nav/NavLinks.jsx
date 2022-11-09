@@ -1,10 +1,11 @@
 import { Group } from "@mantine/core";
+import useLinks from "./useLinks";
 
-import links from "./links";
 import NavLink from "./NavLink";
 
 export default function NavLinks() {
-  const navlinks = links.map((nav) => <NavLink key={nav.link} nav={nav} />);
+  const links = useLinks();
+  const navlinks = links.map((nav) => <NavLink key={nav.name} nav={nav} />);
 
   return <Group className="hidden md:flex gap-2">{navlinks}</Group>;
 }

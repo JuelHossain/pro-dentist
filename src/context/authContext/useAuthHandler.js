@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useSignInWithEmailAndPassword, useUpdateProfile } from "react-firebase-hooks/auth";
 import { useLocation, useNavigate } from "react-router-dom";
 import auth from "../../firebase";
+import useToken from "../../hooks/auth/useToken";
 import useCreateUser from "./useCreateUser";
 import usePhotoURL from "./usePhotoURL";
 
@@ -21,6 +22,8 @@ export default function useAuthHandler({ form, type, setError }) {
   const { state } = useLocation();
   const from = state?.from || "/";
 
+  const { mutate: generateToken } = useToken();
+
   const authHandler = (e) => {
     onSubmit(async (data) => {
       const { email, password, name, photo } = data;
@@ -32,10 +35,12 @@ export default function useAuthHandler({ form, type, setError }) {
         if (user && photo) {
           const url = await upload(photo, user);
           await updateProfile({ displayName: name, photoURL: url });
+          generateToken(signedInUser);
           navigate(from);
           reset();
         } else if (user) {
           await updateProfile({ displayName: name });
+          generateToken(signedInUser);
           navigate(from);
           reset();
         }
@@ -46,12 +51,13 @@ export default function useAuthHandler({ form, type, setError }) {
   useEffect(() => {
     if (signedInUser) {
       navigate(from);
+      generateToken(signedInUser);
       reset();
     }
     if (authError) {
       setError(authError.message);
     }
-  }, [setError, navigate, user, authError, signedInUser, reset, from]);
+  }, [setError, navigate, user, authError, signedInUser, reset, from, generateToken]);
 
   return { authHandler, authError, user, loading };
 }

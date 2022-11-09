@@ -10,7 +10,7 @@ export default function AppHeader() {
   const [{ y }] = useWindowScroll();
   const m = y > 50;
   return (
-    <Header position="sticky" className=" sticky top-0 py-4 z-40 duration-500 ">
+    <Header position="sticky" className=" sticky top-0 py-4 z-40 ">
       <Group className={`justify-between ${m || "items-end"} duration-500 `} noWrap>
         <Logo m={m} />
         <NavLinks />

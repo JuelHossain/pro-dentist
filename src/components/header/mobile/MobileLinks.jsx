@@ -2,15 +2,15 @@ import { ActionIcon, Menu, Stack } from "@mantine/core";
 
 import { IconMenu } from "@tabler/icons";
 import { useHeaderContext } from "../../../context/headerContext";
-import links from "../nav/links";
+import useLinks from "../nav/useLinks";
 import UserSection from "../user/UserSection";
 import NavLInk from "./NavLink";
 
 export default function MobileLinks() {
   const { disclosure } = useHeaderContext();
   const [opened, { open, close }] = disclosure;
-
-  const mobileNavs = links.map((nav) => <NavLInk key={nav.link} nav={nav} />);
+  const links = useLinks();
+  const mobileNavs = links.map((nav) => <NavLInk key={nav.name} nav={nav} />);
 
   return (
     <Menu

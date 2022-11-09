@@ -5,6 +5,7 @@ import { useSignInWithGithub, useSignInWithGoogle } from "react-firebase-hooks/a
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../../context/authContext/authContext";
 import auth from "../../../firebase";
+import useToken from "../../../hooks/auth/useToken";
 import GoogleIcon from "./icons/GoogleIcon";
 
 export function GoogleButton({ ...props }) {
@@ -41,14 +42,17 @@ export function SocialButtons() {
   const { state } = useLocation();
   const from = state?.from || "/";
 
+  const { mutate: generateToken } = useToken();
+
   useEffect(() => {
     if (error) {
       setError(error.message);
     }
     if (user) {
       navigate(from);
+      generateToken(user);
     }
-  }, [user, error, setError, navigate, from]);
+  }, [user, error, setError, navigate, from, generateToken]);
 
   return (
     <Group mb="md" mt="md">

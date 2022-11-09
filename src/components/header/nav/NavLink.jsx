@@ -7,14 +7,24 @@ const NavLink = forwardRef(({ nav, ...props }, ref) => {
   const { link, name } = nav;
   const { pathname } = useLocation();
   const path = pathname.slice(1);
+
+  const propsToPass = () => {
+    if (typeof link === "function") {
+      return { onClick: link };
+    }
+    return {
+      to: link,
+      component: Link,
+    };
+  };
+
   return (
     <Button
       {...props}
+      {...propsToPass()}
       ref={ref}
-      component={Link}
       variant={(path.includes(link) && link !== "/") || (pathname === "/" && link === "/") ? "light" : "subtle"}
       className="capitalize"
-      to={link}
     >
       {name}
     </Button>

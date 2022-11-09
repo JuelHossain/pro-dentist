@@ -1,3 +1,4 @@
+import AddServiceModal from "../add-services/AddServiceModal";
 import AuthModal from "../auth/AuthModal";
 import PrivacyModal from "../privacy-policy/PrivacyModal";
 import TermsModal from "../terms&conditions/TermsModal";
@@ -5,9 +6,10 @@ import TermsModal from "../terms&conditions/TermsModal";
 export default function AllModal() {
   return (
     <>
+      <AuthModal />
+      <AddServiceModal />
       <TermsModal />
       <PrivacyModal />
-      <AuthModal />
     </>
   );
 }

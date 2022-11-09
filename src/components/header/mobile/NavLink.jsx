@@ -10,20 +10,33 @@ const NavLink = forwardRef(({ nav, ...props }, ref) => {
 
   const { pathname } = useLocation();
   const { disclosure } = useHeaderContext();
-  const [, { close }] = disclosure;
+  const [, { close: closeMenu }] = disclosure;
+
+  const propsToPass = () => {
+    if (typeof link === "function") {
+      return {
+        onClick: () => {
+          closeMenu();
+          link();
+        },
+      };
+    }
+    return {
+      onClick: closeMenu,
+      to: link,
+      component: Link,
+    };
+  };
 
   return (
     <Button
       ref={ref}
       {...props}
-      onClick={close}
+      {...propsToPass()}
       fullWidth
       classNames={{ inner: "justify-start capitalize" }}
       leftIcon={<Icon size={18} />}
       variant={(pathname.includes(link) && link !== "/") || (pathname === "/" && link === "/") ? "filled" : "light"}
-      component={Link}
-      key={link}
-      to={link}
     >
       {name}
     </Button>
