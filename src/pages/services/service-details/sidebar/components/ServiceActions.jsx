@@ -1,17 +1,18 @@
 import { Button, Group } from "@mantine/core";
-import { IconPencil, IconTrash } from "@tabler/icons";
+import { IconPencil } from "@tabler/icons";
 import UpdateServiceModal from "../../../../../components/modify-services/UpdateServiceModal";
 import { useModalContext } from "../../../../../context/modalContext";
+import DeleteService from "./DeleteService";
 
 export default function ServiceActions() {
   const { updateServiceModal } = useModalContext();
   const [, { open }] = updateServiceModal;
   return (
-    <Group grow>
-      <Button onClick={open} leftIcon={<IconPencil size={18} />}>
+    <Group className="w-full">
+      <Button className="flex-1" onClick={open} leftIcon={<IconPencil size={18} />}>
         Edit
       </Button>
-      <Button leftIcon={<IconTrash size={18} />}>Delete</Button>
+      <DeleteService />
       <UpdateServiceModal />
     </Group>
   );

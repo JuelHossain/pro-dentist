@@ -1,5 +1,6 @@
 import { useTheme, useThemeMode } from "@juel/hooks/theme";
 import { Box, ColorSchemeProvider, LoadingOverlay, MantineProvider } from "@mantine/core";
+import { ModalsProvider } from "@mantine/modals";
 import { NotificationsProvider } from "@mantine/notifications";
 import { RouterProvider } from "react-router-dom";
 import router from "./router";
@@ -17,14 +18,16 @@ function Mantine() {
     <ColorSchemeProvider colorScheme={mode} toggleColorScheme={toggleMode}>
       <MantineProvider withGlobalStyles withNormalizeCSS theme={theme}>
         <NotificationsProvider>
-          <RouterProvider
-            fallbackElement={
-              <Box>
-                <LoadingOverlay visible loaderProps={{ variant: "bars" }} />
-              </Box>
-            }
-            router={router}
-          />
+          <ModalsProvider>
+            <RouterProvider
+              fallbackElement={
+                <Box>
+                  <LoadingOverlay visible loaderProps={{ variant: "bars" }} />
+                </Box>
+              }
+              router={router}
+            />
+          </ModalsProvider>
         </NotificationsProvider>
       </MantineProvider>
     </ColorSchemeProvider>
