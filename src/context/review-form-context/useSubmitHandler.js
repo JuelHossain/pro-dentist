@@ -10,7 +10,7 @@ import { useServiceContext } from "../serviceContext";
 export default function useSubmitHandler({ onSubmit, data, serviceId, id }) {
   const [user] = useAuthState(auth);
   const { email, photoURL, displayName } = user ?? {};
-  const { reviews } = useServiceContext();
+  const { reviews } = useServiceContext() ?? {};
   const { refetch: refetchAllReviews } = reviews ?? {};
   const { refetch: refetchThisReview } = data ?? {};
 
@@ -22,12 +22,12 @@ export default function useSubmitHandler({ onSubmit, data, serviceId, id }) {
       title: `Rating ${m}`,
       message: "Thank you for your rating",
     });
-    refetchAllReviews();
-    refetchThisReview();
+    if (refetchAllReviews) refetchAllReviews();
+    if (refetchThisReview) refetchThisReview();
   };
 
-  const { authModal } = useModalContext();
-  const [, { open }] = authModal;
+  const { authModal } = useModalContext() ?? {};
+  const [, { open } = {}] = authModal || [];
 
   const submitHandler = (e) => {
     if (email) {
@@ -49,7 +49,7 @@ export default function useSubmitHandler({ onSubmit, data, serviceId, id }) {
       })(e);
     } else {
       e.preventDefault();
-      open();
+      if (open) open();
     }
   };
   return submitHandler;

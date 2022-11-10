@@ -1,15 +1,10 @@
 /* eslint-disable no-shadow */
 import { useForm } from "@mantine/form";
 import { useEffect } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import auth from "../../firebase";
 import useGetReview from "../../hooks/reviews/useGetReview";
 import useSubmitHandler from "./useSubmitHandler";
 
-export default function useReviewForm(serviceId) {
-  const [user] = useAuthState(auth);
-  const { email } = user ?? {};
-
+export default function useReviewForm(serviceId, email) {
   const data = useGetReview(serviceId, email);
   const { rating, sayings, _id } = data.data ?? {};
 

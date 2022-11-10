@@ -18,7 +18,6 @@ export default function useGetReview(id, email) {
   const data = useQuery({
     queryKey,
     queryFn: getReview,
-    enabled: !!id,
   });
   return data;
 }
