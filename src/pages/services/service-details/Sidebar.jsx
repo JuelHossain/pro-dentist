@@ -1,12 +1,14 @@
 import { Stack } from "@mantine/core";
 import AddReviews from "./AddReviews";
 import OtherService from "./OtherService";
+import ServiceActions from "./ServiceActions";
 
-export default function Sidebar({ id }) {
+export default function Sidebar() {
   return (
     <Stack className="w-full sm:w-auto">
-      <AddReviews serviceId={id} />
-      <OtherService id={id} />
+      <ServiceActions />
+      <AddReviews />
+      <OtherService  />
     </Stack>
   );
 }

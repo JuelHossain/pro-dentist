@@ -23,7 +23,6 @@ const useStyles = createStyles((theme) => ({
 export default function ServiceCard({ service }) {
   const { name, short, _id } = service;
   const { classes, theme, cx } = useStyles();
-
   return (
     <Card
       shadow="md"

@@ -2,8 +2,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
-export const updateService = async (updatedService) => {
-  const { data: response } = await axios.patch(`/services/${updatedService._id}`, updatedService);
+export const updateService = async ({ patch, id }) => {
+  const { data: response } = await axios.patch(`/services/${id}`, patch);
   return response;
 };
 
@@ -12,27 +12,25 @@ export default function useUpdateService() {
 
   // optimistic update on query start
 
-  const optimisticUpdate = async (updatedService) => {
-    const queryKey = ["get-service", updatedService._id];
-
-    await queryClient.cancelQueries({ queryKey });
+  const optimisticUpdate = async ({ patch, id }) => {
+    const queryKey = ["get-service", id];
 
     const prevService = queryClient.getQueryData(queryKey);
 
-    queryClient.setQueryData(queryKey, { ...updatedService, prevService });
+    queryClient.setQueryData(queryKey, { ...patch, prevService });
 
-    return { prevService, updatedService };
+    return { prevService, patch };
   };
 
   // undo changes on error
-  const undoChanges = (err, un, { prevService, updatedService }) => {
-    const queryKey = ["get-service", updatedService._id];
+  const undoChanges = (err, { id }, { prevService }) => {
+    const queryKey = ["get-service", id];
     queryClient.setQueryData(queryKey, prevService);
   };
 
   // refetch on query end
-  const refetch = (updatedService) => {
-    const queryKey = ["get-service", updatedService._id];
+  const refetch = ({ id }) => {
+    const queryKey = ["get-service", id];
     queryClient.invalidateQueries({ queryKey });
   };
 

@@ -1,11 +1,9 @@
 import { Text } from "@mantine/core";
 import RichTextEditor from "@mantine/rte";
 import { useServiceFormContext } from "../../../context/service-form-context/serviceFormContext";
-import useImageUpload from "../../../hooks/shared/useImageUpload";
 
 export default function Description() {
-  const { getInputProps, errors } = useServiceFormContext();
-  const uploadImage = useImageUpload();
+  const { getInputProps, errors, uploadImage } = useServiceFormContext();
 
   const editorProps = {
     ...getInputProps("description"),

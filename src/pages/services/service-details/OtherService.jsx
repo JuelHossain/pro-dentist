@@ -1,11 +1,13 @@
 /* eslint-disable no-underscore-dangle */
 import { Stack, Text, Title } from "@mantine/core";
 import { Link } from "react-router-dom";
+import { useServiceContext } from "../../../context/serviceContext";
 import useGetServices from "../../../hooks/services/useGetServices";
 
-export default function OtherService({ id }) {
-  const { data } = useGetServices(0, 6);
-  const services = data?.map((s) => {
+export default function OtherService() {
+  const { id } = useServiceContext();
+  const { data: servicesData } = useGetServices(0, 6);
+  const services = servicesData?.map((s) => {
     const { name, _id } = s;
     return (
       s._id === id || (

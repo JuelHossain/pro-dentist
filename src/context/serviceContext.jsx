@@ -1,13 +1,13 @@
-import { createContext, useContext, useMemo, useState } from "react";
+import { createContext, useContext, useMemo, useReducer } from "react";
 import useGetService from "../hooks/services/useGetService";
 
 export const serviceContext = createContext();
-export function ServiceProvider({ children }) {
-  const [id, setId] = useState("");
+export function ServiceProvider({ id, children }) {
+  const [temp, rerender] = useReducer((v) => v + 1, 0);
+
   const data = useGetService(id);
+  const value = useMemo(() => ({ id, temp, rerender, ...data }), [id, temp, rerender, data]);
 
-  const context = useMemo(() => ({ id, setId, data }), [id, setId, data]);
-
-  return <serviceContext.Provider value={context}>{children}</serviceContext.Provider>;
+  return <serviceContext.Provider value={value}>{children}</serviceContext.Provider>;
 }
 export const useServiceContext = () => useContext(serviceContext);

@@ -2,6 +2,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AuthProvider } from "../../context/authContext/authContext";
 import { HeaderProvider } from "../../context/headerContext";
 import { ModalProvider } from "../../context/modalContext";
+import { ServiceProvider } from "../../context/serviceContext";
 import useAxiosSetup from "../../hooks/auth/useAxiosSetup";
 
 export default function AllContextProvider({ children }) {
@@ -11,7 +12,11 @@ export default function AllContextProvider({ children }) {
     <QueryClientProvider client={queryClient}>
       <ModalProvider>
         <AuthProvider>
-          <HeaderProvider>{children}</HeaderProvider>
+          <HeaderProvider>
+            <ServiceProvider>
+            {children}
+            </ServiceProvider>
+          </HeaderProvider>
         </AuthProvider>
       </ModalProvider>
     </QueryClientProvider>

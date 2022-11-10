@@ -1,11 +1,14 @@
 /* eslint-disable no-nested-ternary */
 import { Button, Group, LoadingOverlay, Rating, Stack, Text, Textarea, Title } from "@mantine/core";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useServiceContext } from "../../../context/serviceContext";
 import auth from "../../../firebase";
 import useReviewsForm from "./useReviewsForm";
 
-export default function AddReviews({ serviceId }) {
-  const { submitHandler, getInputProps, errors, data: { data, isLoading } = {} } = useReviewsForm(serviceId);
+export default function AddReviews() {
+  const { id } = useServiceContext();
+  const { submitHandler, getInputProps, errors, data: { data, isLoading } = {} } = useReviewsForm(id);
+
   const [user] = useAuthState(auth);
 
   return (
@@ -21,7 +24,7 @@ export default function AddReviews({ serviceId }) {
       </Group>
       <Textarea {...getInputProps("sayings")} placeholder="inspire us with your words " />
       <Group position="right">
-        <Button  type="submit">{data ? "Update" : user ? "Submit" : "Please Login"}</Button>
+        <Button type="submit">{data ? "Update" : user ? "Submit" : "Please Login"}</Button>
       </Group>
     </Stack>
   );
