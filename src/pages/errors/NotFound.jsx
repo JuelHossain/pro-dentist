@@ -1,5 +1,6 @@
 import { Button, Container, createStyles, Group, Text, Title } from "@mantine/core";
 import { Link } from "react-router-dom";
+import useSetPageTitle from "../../hooks/shared/useSetPageTitle";
 
 const useStyles = createStyles((theme) => ({
   root: {
@@ -41,6 +42,7 @@ const useStyles = createStyles((theme) => ({
 
 export default function NotFound() {
   const { classes } = useStyles();
+  useSetPageTitle("Not Found");
 
   return (
     <Container className={classes.root}>

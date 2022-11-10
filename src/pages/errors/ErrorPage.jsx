@@ -1,7 +1,9 @@
 import { Button, Container, createStyles, Group, Text, Title, useMantineTheme } from "@mantine/core";
+import useSetPageTitle from "../../hooks/shared/useSetPageTitle";
 
 function Illustration(props) {
   const theme = useMantineTheme();
+  useSetPageTitle("error");
   return (
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 332 145" {...props}>
       <path

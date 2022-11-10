@@ -1,5 +1,6 @@
 import { Container, createStyles, SimpleGrid, Text, ThemeIcon, Title } from "@mantine/core";
 import { IconExclamationMark } from "@tabler/icons";
+import useSetPageTitle from "../../hooks/shared/useSetPageTitle";
 import blogs from "./blogs";
 
 const useStyles = createStyles((theme) => ({
@@ -53,6 +54,7 @@ const useStyles = createStyles((theme) => ({
 
 export default function Blog() {
   const { classes } = useStyles();
+  useSetPageTitle("Blog");
 
   const items = blogs.map((item) => (
     <div className={classes.item} key={item.question}>
