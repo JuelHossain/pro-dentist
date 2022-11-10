@@ -26,23 +26,23 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export default function Heading() {
+export default function Heading({ title, badge, text }) {
   const { classes } = useStyles();
   return (
     <>
       <Group position="center">
         <Badge variant="filled" size="lg">
-          Dental Services We Provide
+          {badge || "Dental Services We Provide"}
         </Badge>
       </Group>
 
       <Title order={2} className={classes.title} align="center" mt="sm">
-        Please Checkout our services below
+        {title || " Please Checkout our services below"}
       </Title>
 
       <Text color="dimmed" className={classes.description} align="center" mt="md">
-        Select your desired service and book an appointment now. if you have taken any of those service already please
-        provide a review . we will be glad to know what you think about us.
+        {text ||
+          "Select your desired service and book an appointment now. if you have taken any of those service already pleaseprovide a review . we will be glad to know what you think about us."}
       </Text>
     </>
   );

@@ -6,7 +6,7 @@ export default function useGetReviews(serviceId, email) {
   if (serviceId && email) {
     query = `?serviceId=${serviceId}&email=${email}`;
   } else if (email) {
-    query = `?serviceId=${serviceId}`;
+    query = `?email=${email}`;
   } else if (serviceId) {
     query = `?serviceId=${serviceId}`;
   }

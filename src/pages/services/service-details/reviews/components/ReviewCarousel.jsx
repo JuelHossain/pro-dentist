@@ -3,8 +3,8 @@ import { Carousel } from "@mantine/carousel";
 import { useMantineTheme } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { useServiceContext } from "../../../../../context/serviceContext";
+import ReviewCard from "../review-card/ReviewCard";
 import NoReviews from "./NoReviews";
-import ReviewCard from "./ReviewCard";
 
 export default function ReviewCarousel() {
   const theme = useMantineTheme();

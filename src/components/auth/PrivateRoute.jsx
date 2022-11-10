@@ -13,19 +13,18 @@ export default function PrivateRoute({ children }) {
   useEffect(() => {
     if (user) {
       close();
-    } else {
+    } else if (!loading) {
       open();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   if (loading) {
-    <LoadingOverlay />;
+    return <LoadingOverlay visible />;
   }
   if (user) {
     return children;
   }
-
   return (
     <Center className="w-full h-full text-center flex-1 flex mt-10 ">
       <Card withBorder shadow="md " className="p-10 flex flex-col gap-4 items-center">
