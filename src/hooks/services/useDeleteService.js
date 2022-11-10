@@ -1,4 +1,5 @@
 /* eslint-disable no-underscore-dangle */
+import { showNotification } from "@mantine/notifications";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
@@ -17,6 +18,12 @@ export default function useDeleteService() {
   const mutation = useMutation({
     mutationFn: deleteService,
     onSettled: refetch,
+    onSuccess: () => {
+      showNotification({
+        title: "Service Deleted",
+        message: "Service has been deleted Successfully",
+      });
+    },
   });
   return mutation;
 }

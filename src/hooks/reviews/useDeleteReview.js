@@ -1,4 +1,5 @@
 /* eslint-disable no-underscore-dangle */
+import { showNotification } from "@mantine/notifications";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
@@ -18,6 +19,12 @@ export default function useDeleteReview() {
   const mutation = useMutation({
     mutationFn: deleteReview,
     onSettled: refetch,
+    onSuccess: () => {
+      showNotification({
+        title: "Rating Deleted",
+        message: "Rating has been deleted Successfully",
+      });
+    },
   });
   return mutation;
 }
