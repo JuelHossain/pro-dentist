@@ -1,12 +1,10 @@
 import { Button, Group } from "@mantine/core";
 import { IconPencil, IconTrash } from "@tabler/icons";
-import UpdateServiceModal from "../../../components/modify-services/UpdateServiceModal";
-import { useModalContext } from "../../../context/modalContext";
-import { useServiceContext } from "../../../context/serviceContext";
+import UpdateServiceModal from "../../../../../components/modify-services/UpdateServiceModal";
+import { useModalContext } from "../../../../../context/modalContext";
 
 export default function ServiceActions() {
   const { updateServiceModal } = useModalContext();
-  const { id } = useServiceContext();
   const [, { open }] = updateServiceModal;
   return (
     <Group grow>
@@ -14,7 +12,7 @@ export default function ServiceActions() {
         Edit
       </Button>
       <Button leftIcon={<IconTrash size={18} />}>Delete</Button>
-      <UpdateServiceModal id={id} />
+      <UpdateServiceModal />
     </Group>
   );
 }

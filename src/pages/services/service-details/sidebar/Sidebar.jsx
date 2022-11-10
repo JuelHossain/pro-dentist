@@ -1,7 +1,7 @@
 import { Stack } from "@mantine/core";
-import AddReviews from "../../../components/modify-reviews/AddReviews";
-import OtherService from "./OtherService";
-import ServiceActions from "./ServiceActions";
+import AddReviews from "../../../../components/modify-reviews/AddReviews";
+import OtherService from "./components/OtherService";
+import ServiceActions from "./components/ServiceActions";
 
 export default function Sidebar() {
   return (

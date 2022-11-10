@@ -1,8 +1,8 @@
 /* eslint-disable no-underscore-dangle */
 import { Stack, Text, Title } from "@mantine/core";
 import { Link } from "react-router-dom";
-import { useServiceContext } from "../../../context/serviceContext";
-import useGetServices from "../../../hooks/services/useGetServices";
+import { useServiceContext } from "../../../../../context/serviceContext";
+import useGetServices from "../../../../../hooks/services/useGetServices";
 
 export default function OtherService() {
   const { id } = useServiceContext();

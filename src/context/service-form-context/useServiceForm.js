@@ -1,35 +1,12 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-shadow */
 import { useForm } from "@mantine/form";
-import { showNotification } from "@mantine/notifications";
 import { useEffect } from "react";
-import useAddService from "../../hooks/services/useAddService";
-import useUpdateService from "../../hooks/services/useUpdateService";
 import useImageUpload from "../../hooks/shared/useImageUpload";
-import { useModalContext } from "../modalContext";
 import { useServiceContext } from "../serviceContext";
+import useSubmitHandler from "./useSubmitHandler";
 
-export default function useServiceForm(id) {
-  // services
-  const { data: service, refetch } = useServiceContext();
-
-  // image upload
-  const [uploadImage, uploading] = useImageUpload();
-
-  // add service hook
-  const { mutate: addService, isLoading: adding } = useAddService();
-
-  // update service hook
-  const { mutate: updateService, isLoading: updating } = useUpdateService();
-
-  // add service modal context
-  const { addServiceModal, updateServiceModal } = useModalContext();
-  const [, { close: closeAdd }] = addServiceModal;
-  const [, { close: closeUpdate }] = updateServiceModal;
-
-  // all loading states
-  const loading = adding || updating;
-
+export default function useServiceForm() {
   // form object
   const form = useForm({
     // initial form values
@@ -51,8 +28,11 @@ export default function useServiceForm(id) {
       imageLink: (value) => (value === "" ? "Image Link is required" : null),
     },
   });
-  const { onSubmit, reset, setValues } = form;
 
+  // services
+  const { data: service, refetch } = useServiceContext();
+
+  const { setValues } = form;
   useEffect(() => {
     if (service) {
       const { _id, ...serviceData } = service;
@@ -60,35 +40,12 @@ export default function useServiceForm(id) {
     }
   }, [service, setValues]);
 
-  // success handler function
-  const successHandler = (m) => {
-    showNotification({ title: `Service has been ${m} successfully` });
-    if (m === "added") reset();
-    closeAdd();
-    closeUpdate();
-    refetch();
-  };
+  // image upload
+  const [uploadImage, uploading] = useImageUpload();
 
-  // submit handler
-  const submitHandler = (e) => {
-    if (!uploading) {
-      onSubmit((d) => {
-        const data = { ...d, createdAt: new Date() };
+  // submit handler function
 
-        if (id) {
-          // update service
-          updateService({ patch: data, id }, { onSuccess: () => successHandler("updated") });
-        } else {
-          // add service
-          addService(data, {
-            onSuccess: () => successHandler("added"),
-          });
-        }
-      })(e);
-    } else {
-      e.preventDefault();
-    }
-  };
+  const handlerObj = useSubmitHandler({ ...form, refetch, service });
 
-  return { ...form, submitHandler, loading, uploadImage, uploading };
+  return { ...form, ...handlerObj, uploadImage, uploading };
 }

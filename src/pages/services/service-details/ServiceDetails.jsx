@@ -2,9 +2,9 @@ import { Container, Divider, Stack } from "@mantine/core";
 import { useParams } from "react-router-dom";
 import { ServiceProvider } from "../../../context/serviceContext";
 
-import Details from "./Details";
-import Reviews from "./rating/Reviews";
-import Sidebar from "./Sidebar";
+import Details from "./details/Details";
+import Reviews from "./reviews/Reviews";
+import Sidebar from "./sidebar/Sidebar";
 
 export default function ServiceDetails() {
   const { id } = useParams();

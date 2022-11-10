@@ -4,7 +4,7 @@ import { useModalContext } from "../../context/modalContext";
 import { ServiceFormProvider } from "../../context/service-form-context/serviceFormContext";
 import ServiceForm from "./ServiceForm";
 
-export default function UpdateServiceModal({ id }) {
+export default function UpdateServiceModal() {
   const { updateServiceModal } = useModalContext();
   const [opened, { close }] = updateServiceModal;
   return (
@@ -17,7 +17,7 @@ export default function UpdateServiceModal({ id }) {
       onClose={close}
       closeOnClickOutside={false}
     >
-      <ServiceFormProvider id={id}>
+      <ServiceFormProvider>
         <ServiceForm />
       </ServiceFormProvider>
     </Modal>

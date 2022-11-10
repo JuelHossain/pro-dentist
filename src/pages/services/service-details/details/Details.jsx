@@ -1,5 +1,5 @@
 import { LoadingOverlay, Stack, Title } from "@mantine/core";
-import { useServiceContext } from "../../../context/serviceContext";
+import { useServiceContext } from "../../../../context/serviceContext";
 import Description from "./Description";
 
 export default function Details() {
