@@ -3,6 +3,7 @@ import Footer from "./components/footer/Footer";
 import AppHeader from "./components/header/Header";
 import AllContextProvider from "./components/shared/AllContextProvider";
 import AllModal from "./components/shared/AllModal";
+import "react-photo-view/dist/react-photo-view.css";
 
 export default function App() {
   return (
