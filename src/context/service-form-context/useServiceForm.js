@@ -2,62 +2,74 @@
 /* eslint-disable no-shadow */
 import { useForm } from "@mantine/form";
 import { showNotification } from "@mantine/notifications";
-import { IconX } from "@tabler/icons";
-import { useModalContext } from "../../context/modalContext";
 import useAddService from "../../hooks/services/useAddService";
 import useGetService from "../../hooks/services/useGetService";
 import useUpdateService from "../../hooks/services/useUpdateService";
+import { useModalContext } from "../modalContext";
 
 export default function useServiceForm(id) {
-  const { data } = useGetService(id);
+  // services
+  const { data: service } = useGetService(id);
+
+  // add service hook
   const { mutate: addService, isLoading: adding } = useAddService();
+
+  // update service hook
   const { mutate: updateService, isLoading: updating } = useUpdateService();
 
-  const loading = adding || updating;
-
+  // add service modal context
   const { addServiceModal } = useModalContext();
   const [, { close }] = addServiceModal;
 
+  // all loading states
+  const loading = adding || updating;
+
+  // form object
   const form = useForm({
+    // initial form values
     initialValues: {
-      name: data?.name || "",
-      short: data?.short || "",
-      description: data?.description || "",
+      name: service?.name || "",
+      price: service?.price || "",
+      short: service?.short || "",
+      description: service?.description || "",
+      imageLink: service?.imageLink || "",
     },
+
+    // form validation
     validate: {
       name: (value) => (value === "" ? "Service name is required" : null),
+      price: (value) => (value === "" ? "Price is Required" : null),
       short: (value) =>
         value === "" ? "short Description is Required" : value.length > 100 ? "Maximum 100 character please" : null,
       description: (value) => (value.length < 100 ? "Description should at least be 100 characters" : null),
+      imageLink: (value) => (value === "" ? "Image Link is required" : null),
     },
   });
   const { onSubmit, reset } = form;
-  const errorHandler = () => {
-    showNotification({
-      icon: <IconX size={18} />,
-      color: "red",
-      title: `Server Side Error`,
-      message: "There was some server side error Please try again later",
-    });
-  };
+
+  // success handler function
   const successHandler = (m) => {
     showNotification({ title: `Service has been ${m} successfully` });
     reset();
     close();
   };
 
+  // submit handler
   const submitHandler = (e) => {
     onSubmit((d) => {
       const data = { ...d, createdAt: new Date() };
+
       if (id) {
-        updateService({ ...data, _id: id }, { onError: errorHandler, onSuccess: () => successHandler("updated") });
+        // update service
+        updateService({ ...data, id }, { onSuccess: () => successHandler("updated") });
       } else {
+        // add service
         addService(data, {
-          onError: errorHandler,
           onSuccess: () => successHandler("added"),
         });
       }
     })(e);
   };
+
   return { ...form, submitHandler, loading };
 }

@@ -3,11 +3,9 @@ import axios from "axios";
 
 export default function useGetReview(id, email) {
   let query = "";
-  const queryKey = ["get-review", id];
 
   if (email) {
     query = `?email=${email}`;
-    queryKey.push(email);
   }
 
   const getReview = async () => {
@@ -16,7 +14,7 @@ export default function useGetReview(id, email) {
   };
 
   const data = useQuery({
-    queryKey,
+    queryKey: ["get-review", id, email],
     queryFn: getReview,
   });
   return data;

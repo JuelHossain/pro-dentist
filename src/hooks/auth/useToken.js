@@ -1,7 +1,10 @@
+/* eslint-disable import/no-cycle */
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import { useTokenContext } from "../../context/tokenContext";
 
 export default function useToken() {
+  const { setToken, removeToken } = useTokenContext();
   const generateToken = async (user) => {
     const { data } = await axios.put(`/users`, user);
     return data;
@@ -9,10 +12,10 @@ export default function useToken() {
   const mutation = useMutation({
     mutationFn: generateToken,
     onSuccess: (data) => {
-      localStorage.setItem("accessToken", data.accessToken);
+      setToken(data.accessToken);
     },
     onError: () => {
-      localStorage.removeItem("accessToken");
+      removeToken();
     },
   });
   return mutation;

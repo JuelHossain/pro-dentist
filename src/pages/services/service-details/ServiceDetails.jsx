@@ -1,5 +1,6 @@
 import { Container, Divider, Stack } from "@mantine/core";
 import { useParams } from "react-router-dom";
+import UpdateServiceModal from "../../../components/modify-services/UpdateServiceModal";
 
 import Details from "./Details";
 import Reviews from "./rating/Reviews";
@@ -17,6 +18,7 @@ export default function ServiceDetails() {
         </div>
         <Reviews serviceId={id} />
       </Stack>
+      <UpdateServiceModal id={id} />
     </Container>
   );
 }

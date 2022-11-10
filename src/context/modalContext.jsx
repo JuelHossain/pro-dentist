@@ -7,10 +7,11 @@ export function ModalProvider({ children }) {
   const privacyModal = useDisclosure();
   const authModal = useDisclosure();
   const addServiceModal = useDisclosure();
+  const updateServiceModal = useDisclosure();
 
   const context = useMemo(
-    () => ({ termsModal, privacyModal, authModal, addServiceModal }),
-    [termsModal, privacyModal, authModal, addServiceModal],
+    () => ({ termsModal, privacyModal, authModal, addServiceModal, updateServiceModal }),
+    [termsModal, privacyModal, authModal, addServiceModal, updateServiceModal],
   );
 
   return <modalContext.Provider value={context}>{children}</modalContext.Provider>;

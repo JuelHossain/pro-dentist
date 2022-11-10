@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 
 export default function useImageUpload() {
-  const handleImageUpload = useCallback(
+  const uploadImage = useCallback(
     (file) =>
       new Promise((resolve, reject) => {
         const formData = new FormData();
@@ -17,5 +17,5 @@ export default function useImageUpload() {
       }),
     [],
   );
-  return handleImageUpload;
+  return uploadImage;
 }
