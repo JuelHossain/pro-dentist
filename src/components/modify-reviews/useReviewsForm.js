@@ -3,11 +3,11 @@ import { useForm } from "@mantine/form";
 import { showNotification } from "@mantine/notifications";
 import { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useModalContext } from "../../../context/modalContext";
-import auth from "../../../firebase";
-import useAddReview from "../../../hooks/reviews/useAddReview";
-import useGetReview from "../../../hooks/reviews/useGetReview";
-import useUpdateReview from "../../../hooks/reviews/useUpdateReview";
+import { useModalContext } from "../../context/modalContext";
+import auth from "../../firebase";
+import useAddReview from "../../hooks/reviews/useAddReview";
+import useGetReview from "../../hooks/reviews/useGetReview";
+import useUpdateReview from "../../hooks/reviews/useUpdateReview";
 
 export default function useReviewsForm(serviceId) {
   const [user] = useAuthState(auth);

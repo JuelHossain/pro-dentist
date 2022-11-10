@@ -1,5 +1,5 @@
 import { Stack } from "@mantine/core";
-import AddReviews from "./AddReviews";
+import AddReviews from "../../../components/modify-reviews/AddReviews";
 import OtherService from "./OtherService";
 import ServiceActions from "./ServiceActions";
 
@@ -8,7 +8,7 @@ export default function Sidebar() {
     <Stack className="w-full sm:w-auto">
       <ServiceActions />
       <AddReviews />
-      <OtherService  />
+      <OtherService />
     </Stack>
   );
 }

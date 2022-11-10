@@ -1,8 +1,8 @@
 /* eslint-disable no-nested-ternary */
 import { Button, Group, LoadingOverlay, Rating, Stack, Text, Textarea, Title } from "@mantine/core";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useServiceContext } from "../../../context/serviceContext";
-import auth from "../../../firebase";
+import { useServiceContext } from "../../context/serviceContext";
+import auth from "../../firebase";
 import useReviewsForm from "./useReviewsForm";
 
 export default function AddReviews() {
