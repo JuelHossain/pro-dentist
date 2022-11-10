@@ -11,7 +11,8 @@ export default function useSubmitHandler({ onSubmit, data, serviceId, id }) {
   const [user] = useAuthState(auth);
   const { email, photoURL, displayName } = user ?? {};
   const { reviews } = useServiceContext();
-  const { refetch } = reviews ?? {};
+  const { refetch: refetchAllReviews } = reviews ?? {};
+  const { refetch: refetchThisReview } = data ?? {};
 
   const { mutate: addReview } = useAddReview();
   const { mutate: updateReview } = useUpdateReview();
@@ -21,7 +22,8 @@ export default function useSubmitHandler({ onSubmit, data, serviceId, id }) {
       title: `Rating ${m}`,
       message: "Thank you for your rating",
     });
-    refetch();
+    refetchAllReviews();
+    refetchThisReview();
   };
 
   const { authModal } = useModalContext();
