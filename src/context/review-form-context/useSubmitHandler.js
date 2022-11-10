@@ -1,4 +1,5 @@
 /* eslint-disable no-shadow */
+import { closeAllModals } from "@mantine/modals";
 import { showNotification } from "@mantine/notifications";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase";
@@ -24,6 +25,7 @@ export default function useSubmitHandler({ onSubmit, data, serviceId, id }) {
     });
     if (refetchAllReviews) refetchAllReviews();
     if (refetchThisReview) refetchThisReview();
+    closeAllModals();
   };
 
   const { authModal } = useModalContext() ?? {};

@@ -4,10 +4,10 @@ import { IconPencil } from "@tabler/icons";
 import ReviewForm from "../../../../../../components/modify-reviews/ReviewForm/ReviewForm";
 import { ReviewFormProvider } from "../../../../../../context/review-form-context/reviewFormContext";
 
-export default function UpdateRating({ id }) {
+export default function UpdateRating({ id, name }) {
   const openDeleteModal = () =>
     openModal({
-      title: <Title order={4}>Please Edit This Review,</Title>,
+      title: <Title order={4}>Review for {name}</Title>,
       centered: true,
       children: (
         <ReviewFormProvider id={id}>

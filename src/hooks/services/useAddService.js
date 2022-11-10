@@ -11,7 +11,7 @@ export default function useAddService() {
 
   // refetching the data when its settled
   const refetch = () => {
-    queryClient.invalidateQueries({ queryKey: ["get-services"] });
+    queryClient.invalidateQueries({ queryKey: ["get-services",undefined,undefined] });
   };
 
   const mutation = useMutation({

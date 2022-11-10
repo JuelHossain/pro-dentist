@@ -11,13 +11,11 @@ export default function DeleteRating({ id, name }) {
       centered: true,
       children: (
         <Text size="sm">
-          Are you sure you want to delete your profile? This action is destructive and you will have to contact support
-          to restore your data.
+          Are you sure you want to delete your Rating? You Can not undo this action later . please think twice
         </Text>
       ),
-      labels: { confirm: "Delete account", cancel: "No don't delete it" },
+      labels: { confirm: "Delete Rating", cancel: "No don't delete it" },
       confirmProps: { color: "red" },
-      onCancel: () => console.log("Cancel"),
       onConfirm: () => {
         mutate(id);
       },
