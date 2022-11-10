@@ -13,7 +13,6 @@ const useStyles = createStyles((theme) => ({
     backgroundPosition: "center",
 
     "@media (max-width: 575px)": {
-      paddingTop: 80,
       paddingBottom: 50,
       backgroundPosition: "right",
       backgroundPositionX: 500,
