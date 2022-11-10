@@ -11,11 +11,9 @@ export default function useUpdateReview() {
   const queryClient = useQueryClient();
 
   // refetch on query end
-  const refetch = async ({ id }) => {
+  const refetch = async (res, err, { id }) => {
     const queryKey = ["get-review", id];
     await queryClient.invalidateQueries({ queryKey });
-
-    await queryClient.invalidateQueries({ queryKey: ["get-reviews"] });
   };
 
   const mutation = useMutation({

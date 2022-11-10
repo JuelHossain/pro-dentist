@@ -1,40 +1,17 @@
 /* eslint-disable no-shadow */
-import { useForm } from "@mantine/form";
 import { showNotification } from "@mantine/notifications";
-import { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useModalContext } from "../../context/modalContext";
 import auth from "../../firebase";
 import useAddReview from "../../hooks/reviews/useAddReview";
-import useGetReview from "../../hooks/reviews/useGetReview";
 import useUpdateReview from "../../hooks/reviews/useUpdateReview";
+import { useModalContext } from "../modalContext";
+import { useServiceContext } from "../serviceContext";
 
-export default function useReviewsForm(serviceId) {
+export default function useSubmitHandler({ onSubmit, data, serviceId, id }) {
   const [user] = useAuthState(auth);
   const { email, photoURL, displayName } = user ?? {};
-
-  const data = useGetReview(serviceId, email);
-  const { rating, sayings, _id } = data.data ?? {};
-
-  const form = useForm({
-    initialValues: {
-      rating: 0,
-      sayings: "",
-    },
-    validate: {
-      rating: (value) => (value === 0 ? "Please Rate by stars" : null),
-      sayings: (value) => (value.length < 10 ? " " : null),
-    },
-  });
-  const { onSubmit, setValues } = form;
-
-  useEffect(() => {
-    if (rating && sayings) {
-      setValues({ rating, sayings });
-    } else {
-      setValues({ rating: 0, sayings: "" });
-    }
-  }, [rating, sayings, setValues]);
+  const { reviews } = useServiceContext();
+  const { refetch } = reviews ?? {};
 
   const { mutate: addReview } = useAddReview();
   const { mutate: updateReview } = useUpdateReview();
@@ -44,6 +21,7 @@ export default function useReviewsForm(serviceId) {
       title: `Rating ${m}`,
       message: "Thank you for your rating",
     });
+    refetch();
   };
 
   const { authModal } = useModalContext();
@@ -56,7 +34,7 @@ export default function useReviewsForm(serviceId) {
         const rating = { ...d, serviceId, userDetails, ratedAt: new Date(), ratingBy: email };
         if (data.data) {
           updateReview(
-            { patch: d, id: _id },
+            { patch: d, id },
             {
               onSuccess: () => successHandler("updated"),
             },
@@ -72,5 +50,5 @@ export default function useReviewsForm(serviceId) {
       open();
     }
   };
-  return { ...form, submitHandler, data };
+  return submitHandler;
 }

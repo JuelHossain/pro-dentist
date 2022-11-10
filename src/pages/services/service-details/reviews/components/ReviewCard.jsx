@@ -1,10 +1,7 @@
 import { Avatar, Group, Paper, Rating, Stack, Text } from "@mantine/core";
 import moment from "moment";
-import useGetReview from "../../../../../hooks/reviews/useGetReview";
 
-export default function ReviewCard({ _id }) {
-  const { data } = useGetReview(_id);
-  const { userDetails: { displayName, photoURL } = {}, rating, sayings, ratedAt } = data ?? {};
+export default function ReviewCard({ userDetails: { displayName, photoURL } = {}, rating, sayings, ratedAt }) {
   const time = moment(ratedAt).fromNow();
   return (
     <Paper withBorder radius="md" className="p-4 h-full">
