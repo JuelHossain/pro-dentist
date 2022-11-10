@@ -3,7 +3,7 @@ import { IconPencil } from "@tabler/icons";
 
 export default function EditRating() {
   return (
-    <ActionIcon>
+    <ActionIcon variant="light" color="sec">
       <IconPencil size={18} />
     </ActionIcon>
   );

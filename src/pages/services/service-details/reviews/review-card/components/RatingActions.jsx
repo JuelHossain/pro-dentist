@@ -11,7 +11,7 @@ export default function RatingActions({ serviceId }) {
         <EditRating />
         <DeleteRating />
       </Group>
-      <Badge>{name}</Badge>
+      <Badge>{name || "Doesn't Exist"}</Badge>
     </Stack>
   );
 }
