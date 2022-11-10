@@ -2,7 +2,7 @@ import { Container, Stack, Text, Title } from "@mantine/core";
 
 import ReviewCarousel from "./components/ReviewCarousel";
 
-export default function Reviews({ serviceId }) {
+export default function Reviews() {
   return (
     <Stack>
       <Container size="xs">
@@ -13,7 +13,7 @@ export default function Reviews({ serviceId }) {
           You can give us a rating too. please give us a rating from the left corner of this page.
         </Text>
       </Container>
-      <ReviewCarousel serviceId={serviceId} />
+      <ReviewCarousel />
     </Stack>
   );
 }

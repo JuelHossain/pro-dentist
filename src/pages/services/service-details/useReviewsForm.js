@@ -1,7 +1,6 @@
 /* eslint-disable no-shadow */
 import { useForm } from "@mantine/form";
 import { showNotification } from "@mantine/notifications";
-import { useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useModalContext } from "../../../context/modalContext";
@@ -36,25 +35,15 @@ export default function useReviewsForm(serviceId) {
       setValues({ rating: 0, sayings: "" });
     }
   }, [rating, sayings, setValues]);
+
   const { mutate: addReview } = useAddReview();
   const { mutate: updateReview } = useUpdateReview();
-  const queryClient = useQueryClient();
 
-  const errorHandler = () => {
-    showNotification({
-      title: "Server Side Error",
-      message: "There was an server side error",
-    });
-  };
   const successHandler = (m) => {
     showNotification({
       title: `Rating ${m}`,
       message: "Thank you for your rating",
     });
-  };
-
-  const settledHandler = () => {
-    queryClient.invalidateQueries(["get-review", serviceId, email]);
   };
 
   const { authModal } = useModalContext();
@@ -69,16 +58,12 @@ export default function useReviewsForm(serviceId) {
           updateReview(
             { patch: d, id: _id },
             {
-              onError: errorHandler,
               onSuccess: () => successHandler("updated"),
-              onSettled: settledHandler,
             },
           );
         } else {
           addReview(rating, {
-            onError: errorHandler,
             onSuccess: () => successHandler("added"),
-            onSettled: settledHandler,
           });
         }
       })(e);

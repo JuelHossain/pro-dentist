@@ -2,15 +2,16 @@
 import { Carousel } from "@mantine/carousel";
 import { useMantineTheme } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
-import useGetReviews from "../../../../../hooks/reviews/useGetReviews";
+import { useServiceContext } from "../../../../../context/serviceContext";
 import NoReviews from "./NoReviews";
 import ReviewCard from "./ReviewCard";
 
-export default function ReviewCarousel({ serviceId }) {
+export default function ReviewCarousel() {
   const theme = useMantineTheme();
   const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm}px)`);
 
-  const { data } = useGetReviews(serviceId);
+  const { reviews: { data } = {} } = useServiceContext();
+
   const slides = data?.map((item) => (
     <Carousel.Slide className="h-full" key={item._id}>
       <ReviewCard {...item} />

@@ -10,37 +10,16 @@ export const updateReview = async ({ patch, id }) => {
 export default function useUpdateReview() {
   const queryClient = useQueryClient();
 
-  // optimistic update on query start
-
-  const optimisticUpdate = async ({ patch, id }) => {
-    const queryKey = ["get-review", id];
-    await queryClient.cancelQueries({ queryKey });
-
-    const prevReview = queryClient.getQueryData(queryKey);
-
-    queryClient.setQueryData(queryKey, { ...patch, prevReview });
-
-    return { prevReview };
-  };
-
-  // undo changes on error
-  const undoChanges = (err, { id }, { prevReview }) => {
-    const queryKey = ["get-review", id];
-    queryClient.setQueryData(queryKey, prevReview);
-  };
-
   // refetch on query end
-  const refetch = ({ id }) => {
+  const refetch = async ({ id }) => {
     const queryKey = ["get-review", id];
-    queryClient.invalidateQueries({ queryKey });
-    const queryKey2 = ["get-reviews"];
-    queryClient.invalidateQueries({ queryKey: queryKey2 });
+    await queryClient.invalidateQueries({ queryKey });
+
+    await queryClient.invalidateQueries({ queryKey: ["get-reviews"] });
   };
 
   const mutation = useMutation({
     mutationFn: updateReview,
-    onMutate: optimisticUpdate,
-    onError: undoChanges,
     onSettled: refetch,
   });
   return mutation;

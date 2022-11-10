@@ -11,7 +11,7 @@ import { useServiceContext } from "../serviceContext";
 
 export default function useServiceForm(id) {
   // services
-  const { data: service, rerender } = useServiceContext();
+  const { data: service, refetch } = useServiceContext();
 
   // image upload
   const [uploadImage, uploading] = useImageUpload();
@@ -64,9 +64,9 @@ export default function useServiceForm(id) {
   const successHandler = (m) => {
     showNotification({ title: `Service has been ${m} successfully` });
     if (m === "added") reset();
-    rerender();
     closeAdd();
     closeUpdate();
+    refetch();
   };
 
   // submit handler
