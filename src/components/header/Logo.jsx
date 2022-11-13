@@ -1,22 +1,18 @@
-import { Divider, Group, Stack, Text, Title } from "@mantine/core";
+import { Group, Title } from "@mantine/core";
 import { IconDental } from "@tabler/icons";
 import { Link } from "react-router-dom";
 
-export default function Logo({ m }) {
+export default function Logo() {
   return (
     <Group
       noWrap
       component={Link}
-      spacing={m && 3}
       to="/"
-      className="text-xl font-bold no-underline text-main-6 space-y-0 duration-500"
+      className=" basis-1/3 text-xl font-bold no-underline text-main-6 space-y-0 duration-500 gap-2 md:justify-center"
     >
-      <IconDental className={m ? "w-10 h-10 sm:w-12 sm:h-12 duration-300" : "w-16 h-16 sm:h-20 sm:w-20 duration-300"} />
-      {m || <Divider orientation="vertical" color="primary" />}
-      <Stack spacing={0}>
-        <Title className={m ? "text-xl sm:text-2xl" : "text-3xl sm:text-4xl"}>Pro Dentist</Title>
-        <Text className={m ? "hidden" : "text-sm sm:text-lg"}>Smile Like Never Before</Text>
-      </Stack>
+      <Title className="text-xl sm:text-2xl uppercase">Pro </Title>
+      <IconDental className="w-7 h-7 sm:w-9 sm:h-9 duration-300" />
+      <Title className="text-xl sm:text-2xl uppercase">Dentist </Title>
     </Group>
   );
 }

@@ -1,22 +1,21 @@
+/* eslint-disable react/display-name */
 import { Group, Header } from "@mantine/core";
-import { useWindowScroll } from "@mantine/hooks";
+import { forwardRef } from "react";
 
 import Logo from "./Logo";
 import MobileLinks from "./mobile/MobileLinks";
 import NavLinks from "./nav/NavLinks";
 import UserSection from "./user/UserSection";
 
-export default function AppHeader() {
-  const [{ y }] = useWindowScroll();
-  const m = y > 60;
-  return (
-    <Header position="sticky" className=" sticky top-0 py-4 z-40 ">
-      <Group className={`justify-between ${m || "items-end"} duration-500 `} noWrap>
-        <Logo m={m} />
-        <NavLinks />
-        <UserSection />
-        <MobileLinks />
-      </Group>
-    </Header>
-  );
-}
+const AppHeader = forwardRef((props, ref) => (
+  <Header ref={ref} className="fixed p-2 h-[8vh] flex  items-center">
+    <Group className={`justify-between duration-500 w-full `} noWrap>
+      <NavLinks />
+      <Logo />
+      <UserSection />
+      <MobileLinks />
+    </Group>
+  </Header>
+));
+
+export default AppHeader;
