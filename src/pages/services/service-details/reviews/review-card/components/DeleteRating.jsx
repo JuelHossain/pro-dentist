@@ -1,6 +1,5 @@
 import { ActionIcon, Text } from "@mantine/core";
 import { openConfirmModal } from "@mantine/modals";
-import { showNotification } from "@mantine/notifications";
 import { IconTrash } from "@tabler/icons";
 import useDeleteReview from "../../../../../../hooks/reviews/useDeleteReview";
 
@@ -19,7 +18,6 @@ export default function DeleteRating({ id, name }) {
       confirmProps: { color: "red" },
       onConfirm: () => {
         mutate(id);
-        
       },
     });
   return (
